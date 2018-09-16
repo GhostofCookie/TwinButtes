@@ -14,7 +14,7 @@ class TWINBUTTES_API ABaseCharacter : public ACharacter
 
 public:
 	// Sets default values for this character's properties
-	ABaseCharacter();
+	ABaseCharacter(const FObjectInitializer& ObjectInitializer);
 
 protected:
 	// Called when the game starts or when spawned
@@ -45,8 +45,18 @@ public:
 	UFUNCTION()
 	void Dash();
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Camera)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 	UCameraComponent* CameraComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability Movement")
+	float DoubleJumpZVelocity;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability Movement")
+	float DashForwardVelocity;
+
+	UPROPERTY()
+	UCharacterMovementComponent* MovementComponent;
+
 
 private:
 	int CurrentJumpCount, CurrentDashCount;
