@@ -3,18 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/GameModeBase.h"
-#include "CloudDashGameMode.generated.h"
+#include "Blueprint/UserWidget.h"
+#include "InstructionsWidget.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class TWINBUTTES_API ACloudDashGameMode : public AGameModeBase
+class TWINBUTTES_API UInstructionsWidget : public UUserWidget
 {
 	GENERATED_BODY()
-
-	ACloudDashGameMode();
+	
+	
 	
 	
 };

@@ -1,20 +1,22 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BaseCharacter.h"
+#include "DashCharacterMovementComponent.h"
 
 
 // Sets default values
-ABaseCharacter::ABaseCharacter() 
-	: CurrentJumpCount{ 0 }, MaxJumpCount{ 2 }, CurrentDashCount{ 0 }, MaxDashCount{ 2 }
+ABaseCharacter::ABaseCharacter(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer.SetDefaultSubobjectClass<UDashCharacterMovementComponent>(ACharacter::CharacterMovementComponentName)),
+	CurrentJumpCount{ 0 }, MaxJumpCount{ 2 }, CurrentDashCount{ 0 }, MaxDashCount{ 2 },
+	DoubleJumpZVelocity{750.f}, DashForwardVelocity{1000.f}
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 	CameraComponent->SetupAttachment(RootComponent);
-	CameraComponent->SetRelativeLocation(FVector(35.0f, 0.0f, BaseEyeHeight));
+	CameraComponent->SetRelativeLocation(FVector(0.0f, 0.0f, BaseEyeHeight));
 	CameraComponent->bUsePawnControlRotation = true;
-
 }
 
 // Called when the game starts or when spawned
@@ -67,7 +69,7 @@ void ABaseCharacter::StartJump()
 {
 	bPressedJump = true;
 	if (CurrentJumpCount && CurrentJumpCount < MaxJumpCount)
-		LaunchCharacter(FVector(0.f, 0.f, 750.f), false, true);
+		LaunchCharacter(FVector(0.f, 0.f, DoubleJumpZVelocity), false, true);
 	CurrentJumpCount++;
 }
 
@@ -81,7 +83,7 @@ void ABaseCharacter::Dash()
 {
 	if (CurrentDashCount && CurrentDashCount < MaxDashCount)
 	{
-		LaunchCharacter(GetActorForwardVector() * 1500, true, true);
+		LaunchCharacter(GetActorForwardVector() * DashForwardVelocity, true, true);
 	}
 	CurrentDashCount++;
 
