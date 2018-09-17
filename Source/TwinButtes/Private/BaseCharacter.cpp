@@ -16,12 +16,6 @@ ABaseCharacter::ABaseCharacter(const FObjectInitializer& ObjectInitializer)
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	// Enable the generation of overlapping events and assign a function to be run when it happens.
-	CollisionComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CollisionCapsule"));
-	CollisionComponent->InitCapsuleSize(70, 120);
-	//CollisionComponent->SetRelativeLocation(FVector(0.0f, 0.0f, -10.0f));
-	CollisionComponent->SetGenerateOverlapEvents(true);
-
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 	CameraComponent->SetupAttachment(RootComponent);
 	CameraComponent->SetRelativeLocation(FVector(0.0f, 0.0f, BaseEyeHeight));
@@ -32,8 +26,6 @@ ABaseCharacter::ABaseCharacter(const FObjectInitializer& ObjectInitializer)
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
-	StartLocation = GetActorLocation();
 	
 }
 

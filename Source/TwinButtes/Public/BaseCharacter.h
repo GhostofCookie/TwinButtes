@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
-#include "Runtime/Engine/Classes/Components/CapsuleComponent.h"
 #include "BaseCharacter.generated.h"
 
 UCLASS()
@@ -49,23 +48,20 @@ public:
 	UFUNCTION()
 	void Dash();
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
-	UCameraComponent* CameraComponent;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Collision")
-	UCapsuleComponent* CollisionComponent;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability Movement")
-	float DoubleJumpZVelocity;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability Movement")
-	float DashForwardVelocity;
+	UFUNCTION()
+	void AffectHealth(float Delta);
 
 	UPROPERTY()
 	UCharacterMovementComponent* MovementComponent;
 
-	UFUNCTION()
-	void AffectHealth(float Delta);
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
+	UCameraComponent* CameraComponent;
+
+	UPROPERTY(VisibleAnywhere, Category = "Ability Movement")
+	float DoubleJumpZVelocity;
+
+	UPROPERTY(VisibleAnywhere, Category = "Ability Movement")
+	float DashForwardVelocity;
 
 	UPROPERTY(VisibleAnywhere)
 	float Health;
@@ -75,9 +71,6 @@ public:
 
 	UPROPERTY(BlueprintReadOnly)
 	bool bIsDead;
-
-	UPROPERTY()
-	FVector StartLocation;
 
 
 
