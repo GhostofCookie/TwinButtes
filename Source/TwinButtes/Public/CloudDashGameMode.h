@@ -14,7 +14,13 @@ class TWINBUTTES_API ACloudDashGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
+public:
 	ACloudDashGameMode();
+
+	virtual void BeginPlay() override;
+
+	virtual void Tick(float Delta) override;
+
 	
 	
 };

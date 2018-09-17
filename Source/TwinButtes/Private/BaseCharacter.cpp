@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BaseCharacter.h"
+#include "CloudGameInstance.h"
+#include "Engine/World.h"
 #include "DashCharacterMovementComponent.h"
 
 
@@ -8,7 +10,8 @@
 ABaseCharacter::ABaseCharacter(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<UDashCharacterMovementComponent>(ACharacter::CharacterMovementComponentName)),
 	CurrentJumpCount{ 0 }, MaxJumpCount{ 2 }, CurrentDashCount{ 0 }, MaxDashCount{ 2 },
-	DoubleJumpZVelocity{750.f}, DashForwardVelocity{1000.f}
+	DoubleJumpZVelocity{750.f}, DashForwardVelocity{1000.f},
+	Health{ 100.f }, MaxHealth{ 100.f }, bIsDead{ false }
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -23,6 +26,8 @@ ABaseCharacter::ABaseCharacter(const FObjectInitializer& ObjectInitializer)
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	StartLocation = GetActorLocation();
 	
 }
 
@@ -30,6 +35,9 @@ void ABaseCharacter::BeginPlay()
 void ABaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	CheckHealth();
+	
 
 }
 
@@ -86,6 +94,26 @@ void ABaseCharacter::Dash()
 		LaunchCharacter(GetActorForwardVector() * DashForwardVelocity, true, true);
 	}
 	CurrentDashCount++;
+
+}
+
+void ABaseCharacter::AffectHealth(float Delta)
+{
+	Health -= Delta;
+	CheckHealth();
+}
+
+void ABaseCharacter::CheckHealth()
+{
+	if (Health <= 0.f && !bIsDead)
+	{
+		bIsDead = true;
+
+		// Restart the level to change up the cloud configuration. This isn't proper practice.
+		Cast<UCloudGameInstance>(GetGameInstance())->RestartGame();
+	}
+	if (Health > MaxHealth)
+		Health = MaxHealth;
 
 }
 

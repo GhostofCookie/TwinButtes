@@ -3,7 +3,7 @@
 #include "CampStart.h"
 #include "ConstructorHelpers.h"
 #include "Components/WidgetComponent.h"
-#include "InstructionsWidget.h"
+#include "CloudGameInstance.h"
 
 
 // Sets default values
@@ -33,14 +33,8 @@ ACampStart::ACampStart()
 	if (FireAsset.Succeeded())
 		Fire->SetTemplate(FireAsset.Object);
 
-	Widget = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget"));
-	Widget->SetupAttachment(RootComponent);
-
 	CollisionSphere->OnComponentBeginOverlap.AddDynamic(this, &ACampStart::OnOverlapBegin);
 	CollisionSphere->OnComponentEndOverlap.AddDynamic(this, &ACampStart::OnOverlapEnd);
-
-
-
 
 }
 
@@ -66,16 +60,16 @@ void ACampStart::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class
 		FStringAssetReference FireAsset(TEXT("/Game/Particles/P_Fire.P_Fire"));
 		Fire->SetTemplate(Cast<UParticleSystem>(FireAsset.TryLoad()));
 
-		FStringAssetReference WidgetAsset(TEXT("/Game/Blueprints/BP_Instructions.BP_Instructions"));
-		Widget->SetWidget(Cast<UInstructionsWidget>(WidgetAsset.TryLoad()));
+		Cast<UCloudGameInstance>(GetGameInstance())->ShowInstructions();
 	}
 }
 
 void ACampStart::OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor,
 		class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	FStringAssetReference FireAsset(TEXT(
-		"/Game/Particles/P_Smoke.P_Smoke"));
+	FStringAssetReference FireAsset(TEXT("/Game/Particles/P_Smoke.P_Smoke"));
 	Fire->SetTemplate(Cast<UParticleSystem>(FireAsset.TryLoad()));
+
+	Cast<UCloudGameInstance>(GetGameInstance())->ShowInstructions();
 }
 

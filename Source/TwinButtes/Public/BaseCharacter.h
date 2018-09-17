@@ -20,6 +20,9 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UFUNCTION()
+	void CheckHealth();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -56,6 +59,22 @@ public:
 
 	UPROPERTY()
 	UCharacterMovementComponent* MovementComponent;
+
+	UFUNCTION()
+	void AffectHealth(float Delta);
+
+	UPROPERTY(VisibleAnywhere)
+	float Health;
+
+	UPROPERTY()
+	float MaxHealth;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bIsDead;
+
+	UPROPERTY()
+	FVector StartLocation;
+
 
 
 private:

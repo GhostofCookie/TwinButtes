@@ -4,18 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Components/SphereComponent.h"
-#include "Particles/ParticleSystemComponent.h"
-#include "CampStart.generated.h"
+#include "KillBox.generated.h"
 
 UCLASS()
-class TWINBUTTES_API ACampStart : public AActor
+class TWINBUTTES_API AKillBox : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ACampStart();
+	AKillBox();
 
 protected:
 	// Called when the game starts or when spawned
@@ -33,13 +31,7 @@ public:
 	void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor,
 		class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camp Start")
-	USphereComponent* CollisionSphere;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camp Start")
-	UStaticMeshComponent* MeshComponent;
-
 	UPROPERTY(VisibleAnywhere)
-	UParticleSystemComponent* Fire;
+	class UBoxComponent* CollisionBox;
 	
 };
