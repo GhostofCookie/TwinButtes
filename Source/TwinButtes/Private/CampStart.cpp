@@ -3,6 +3,7 @@
 #include "CampStart.h"
 #include "ConstructorHelpers.h"
 #include "Components/WidgetComponent.h"
+#include "BaseCharacter.h"
 #include "CloudGameInstance.h"
 
 
@@ -55,7 +56,7 @@ void ACampStart::Tick(float DeltaTime)
 
 void ACampStart::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (OtherActor != nullptr && OtherActor != this)
+	if (OtherActor != nullptr && OtherActor != this && Cast<ABaseCharacter>(OtherActor))
 	{
 		FStringAssetReference FireAsset(TEXT("/Game/Particles/P_Fire.P_Fire"));
 		Fire->SetTemplate(Cast<UParticleSystem>(FireAsset.TryLoad()));
