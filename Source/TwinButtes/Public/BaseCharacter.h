@@ -48,7 +48,7 @@ public:
 	UFUNCTION()
 	void Dash();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void AffectHealth(float Delta);
 
 	UPROPERTY()
