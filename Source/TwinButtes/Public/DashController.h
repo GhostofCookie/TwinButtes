@@ -18,9 +18,6 @@ class TWINBUTTES_API ADashController : public APlayerController
 
 	// Executes when a pawn is possessed.
 	virtual void Possess(APawn* InPawn) override;
-
-	UPROPERTY(VisibleAnywhere)
-		class UInstructionsWidget* Widget;
 	
 	
 };
