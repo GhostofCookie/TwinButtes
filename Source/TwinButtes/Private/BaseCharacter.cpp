@@ -101,17 +101,24 @@ void ABaseCharacter::AffectHealth(float Delta)
 	CheckHealth();
 }
 
+void ABaseCharacter::Respawn(FTransform NewTransform)
+{
+	CheckHealth();
+	SetActorTransform(NewTransform);
+}
+
 void ABaseCharacter::CheckHealth()
 {
 	if (Health <= 0.f && !bIsDead)
-	{
 		bIsDead = true;
-
-		// Restart the level to change up the cloud configuration. This isn't proper practice.
-		// Cast<UCloudGameInstance>(GetGameInstance())->RestartGame();
-	}
 	if (Health > MaxHealth)
 		Health = MaxHealth;
+	if (bIsDead)
+	{
+		Health = MaxHealth;
+		bIsDead = false;
+		Cast<UCloudGameInstance>(GetGameInstance())->LoadCheckpoint();
+	}
 
 }
 

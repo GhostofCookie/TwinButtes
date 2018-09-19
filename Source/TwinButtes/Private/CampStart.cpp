@@ -62,6 +62,7 @@ void ACampStart::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class
 		Fire->SetTemplate(Cast<UParticleSystem>(FireAsset.TryLoad()));
 
 		Cast<UCloudGameInstance>(GetGameInstance())->ShowInstructions();
+		Cast<UCloudGameInstance>(GetGameInstance())->SetCheckpoint(GetActorTransform() + FTransform(FVector(0, 0, 100)));
 	}
 }
 

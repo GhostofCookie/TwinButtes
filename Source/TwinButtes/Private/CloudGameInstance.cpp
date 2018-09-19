@@ -2,10 +2,11 @@
 
 #include "CloudGameInstance.h"
 #include "Kismet/GameplayStatics.h"
+#include "BaseCharacter.h"
 #include "Engine/World.h"
-//#include "Blueprint/UserWidget.h"
 #include "InstructionsWidget.h"
 #include "ConstructorHelpers.h"
+#include "DashSaveGame.h"
 
 UCloudGameInstance::UCloudGameInstance() : bWidgetLoaded{ false }
 {
@@ -16,7 +17,7 @@ UCloudGameInstance::UCloudGameInstance() : bWidgetLoaded{ false }
 
 void UCloudGameInstance::RestartGame()
 {
-	UGameplayStatics::OpenLevel(GetWorld(), "Testing_Platform", true);
+	//UGameplayStatics::OpenLevel(GetWorld(), "Testing_Platform", true);
 }
 
 void UCloudGameInstance::ShowInstructions()
@@ -35,4 +36,21 @@ void UCloudGameInstance::ShowInstructions()
 			CurrentWidget->RemoveFromParent();
 		bWidgetLoaded = false;
 	}
+}
+
+void UCloudGameInstance::SetCheckpoint(FTransform NewTransform)
+{
+	UDashSaveGame* SaveInst = Cast<UDashSaveGame>(UGameplayStatics::CreateSaveGameObject(UDashSaveGame::StaticClass()));
+	SaveInst->CheckpointTransform = NewTransform;
+	UGameplayStatics::SaveGameToSlot(SaveInst, "TB_Save_0000", 0);
+	
+}
+
+void UCloudGameInstance::LoadCheckpoint()
+{
+	UDashSaveGame* SaveInst = Cast<UDashSaveGame>(UGameplayStatics::CreateSaveGameObject(UDashSaveGame::StaticClass()));
+	SaveInst = Cast<UDashSaveGame>(UGameplayStatics::LoadGameFromSlot("TB_Save_0000", 0));
+
+	ABaseCharacter* Player = Cast<ABaseCharacter>(UGameplayStatics::GetPlayerCharacter(this, 0));
+	Player->Respawn(SaveInst->CheckpointTransform);
 }

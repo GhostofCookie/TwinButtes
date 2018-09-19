@@ -51,6 +51,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void AffectHealth(float Delta);
 
+	UFUNCTION(BlueprintCallable)
+	void Respawn(FTransform NewTransform);
+
 	UPROPERTY()
 	UCharacterMovementComponent* MovementComponent;
 

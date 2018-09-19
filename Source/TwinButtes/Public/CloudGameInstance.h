@@ -23,6 +23,13 @@ public:
 	UFUNCTION()
 	void ShowInstructions();
 
+	UFUNCTION(BlueprintCallable)
+	void SetCheckpoint(FTransform NewTransform);
+
+	UFUNCTION(BlueprintCallable)
+	void LoadCheckpoint();
+
+
 protected:
 	UPROPERTY()
 	class UUserWidget* CurrentWidget;
