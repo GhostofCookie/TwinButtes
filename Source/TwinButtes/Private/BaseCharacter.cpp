@@ -108,7 +108,7 @@ void ABaseCharacter::CheckHealth()
 		bIsDead = true;
 
 		// Restart the level to change up the cloud configuration. This isn't proper practice.
-		Cast<UCloudGameInstance>(GetGameInstance())->RestartGame();
+		// Cast<UCloudGameInstance>(GetGameInstance())->RestartGame();
 	}
 	if (Health > MaxHealth)
 		Health = MaxHealth;
