@@ -36,7 +36,7 @@ void AKillBox::Tick(float DeltaTime)
 
 void AKillBox::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
-	if (OtherActor && OtherActor != this)
+	if (OtherActor && OtherActor != this && Cast<ABaseCharacter>(OtherActor))
 	{
 		Cast<ABaseCharacter>(OtherActor)->AffectHealth(1000.f);
 	}
