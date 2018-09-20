@@ -34,6 +34,8 @@ ACampStart::ACampStart()
 	if (FireAsset.Succeeded())
 		Fire->SetTemplate(FireAsset.Object);
 
+	bShowInstructions = false;
+
 	CollisionSphere->OnComponentBeginOverlap.AddDynamic(this, &ACampStart::OnOverlapBegin);
 	CollisionSphere->OnComponentEndOverlap.AddDynamic(this, &ACampStart::OnOverlapEnd);
 
@@ -61,8 +63,9 @@ void ACampStart::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class
 		FStringAssetReference FireAsset(TEXT("/Game/Particles/P_Fire.P_Fire"));
 		Fire->SetTemplate(Cast<UParticleSystem>(FireAsset.TryLoad()));
 
-		Cast<UCloudGameInstance>(GetGameInstance())->ShowInstructions();
-		Cast<UCloudGameInstance>(GetGameInstance())->SetCheckpoint(GetActorTransform() + FTransform(FVector(0, 0, 100)));
+		if(bShowInstructions)
+			Cast<UCloudGameInstance>(GetGameInstance())->ShowInstructions();
+		Cast<UCloudGameInstance>(GetGameInstance())->SetCheckpoint(OtherActor->GetActorTransform());
 	}
 }
 
@@ -71,7 +74,8 @@ void ACampStart::OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class A
 {
 	FStringAssetReference FireAsset(TEXT("/Game/Particles/P_Smoke.P_Smoke"));
 	Fire->SetTemplate(Cast<UParticleSystem>(FireAsset.TryLoad()));
-
-	Cast<UCloudGameInstance>(GetGameInstance())->ShowInstructions();
+	
+	if (bShowInstructions)
+		Cast<UCloudGameInstance>(GetGameInstance())->ShowInstructions();
 }
 
