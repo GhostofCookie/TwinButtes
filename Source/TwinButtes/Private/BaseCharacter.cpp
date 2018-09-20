@@ -97,7 +97,8 @@ void ABaseCharacter::Dash()
 
 void ABaseCharacter::AffectHealth(float Delta)
 {
-	Health -= Delta;
+	if(Health > 0)
+		Health -= Delta;
 	CheckHealth();
 }
 

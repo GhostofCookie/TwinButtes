@@ -14,6 +14,16 @@ class TWINBUTTES_API ADashHUD : public AHUD
 {
 	GENERATED_BODY()
 	
+public:
+	ADashHUD();
+
+protected:
+	UPROPERTY()
+	class UUserWidget* CurrentWidget;
+
+	bool bWidgetLoaded;
+
+
 	
 	
 	
