@@ -41,5 +41,8 @@ public:
 
 	UPROPERTY(VisibleAnywhere)
 	UParticleSystemComponent* Fire;
+
+	UPROPERTY(EditAnywhere, Category = "Camp Start")
+	bool bShowInstructions;
 	
 };
