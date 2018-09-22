@@ -20,7 +20,7 @@ ATent::ATent()
 
 	Collision = CreateDefaultSubobject<UBoxComponent>(TEXT("Collison"));
 	Collision->InitBoxExtent(FVector(100.f));
-	
+	Collision->SetupAttachment(RootComponent);
 	
 
 }

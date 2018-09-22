@@ -25,7 +25,7 @@ ACampStart::ACampStart()
 	Fire->SetupAttachment(MeshComponent);
 
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT(
-		"/Game/Assets/CampFire_proto.CampFire_proto"));
+		"/Game/Assets/firePLZ.firePLZ"));
 	if (MeshAsset.Succeeded())
 		MeshComponent->SetStaticMesh(MeshAsset.Object);
 
