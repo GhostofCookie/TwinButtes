@@ -9,7 +9,7 @@
 // Sets default values
 ABaseCharacter::ABaseCharacter(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer.SetDefaultSubobjectClass<UDashCharacterMovementComponent>(ACharacter::CharacterMovementComponentName)),
-	CurrentJumpCount{ 0 }, MaxJumpCount{ 2 }, CurrentDashCount{ 0 }, MaxDashCount{ 2 },
+	CurrentJumpCount{ 0 }, MaxJumpCount{ 2 }, CurrentDashCount{ 0 }, MaxDashCount{ 1 },
 	DoubleJumpZVelocity{750.f}, DashForwardVelocity{1000.f},
 	Health{ 100.f }, MaxHealth{ 100.f }, bIsDead{ false }
 {
@@ -87,12 +87,11 @@ void ABaseCharacter::StopJump()
 
 void ABaseCharacter::Dash()
 {
-	if (CurrentDashCount && CurrentDashCount < MaxDashCount)
+	if (CurrentDashCount < MaxDashCount)
 	{
 		LaunchCharacter(GetActorForwardVector() * DashForwardVelocity, true, true);
 	}
 	CurrentDashCount++;
-
 }
 
 void ABaseCharacter::AffectHealth(float Delta)

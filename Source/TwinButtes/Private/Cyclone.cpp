@@ -9,6 +9,7 @@
 
 // Sets default values
 ACyclone::ACyclone()
+	: Angle{ 0 }, CircleRadius{ 5.f }
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -49,20 +50,22 @@ void ACyclone::Tick(float DeltaTime)
 		FVector NewLocation = GetActorLocation() - PlayerRef->GetActorLocation();
 
 		if (NewLocation.Normalize())
-			NewLocation = (NewLocation * DeltaTime) * -100.f;
+			NewLocation = (NewLocation * DeltaTime) * -200.f;
 		NewLocation += GetActorLocation();
 
 		SetActorLocation(NewLocation);
 	}
 	else
 	{
-
+		FVector NewLocation = FVector(GetActorLocation().X + FMath::Cos(Angle * (PI/180)) * CircleRadius, GetActorLocation().Y + FMath::Sin(Angle * (PI / 180)) * CircleRadius, GetActorLocation().Z);
+		SetActorLocation(NewLocation);
+		Angle = (Angle + 1) % 360;
 	}
 
 	FRotator NewRotation = GetActorRotation();
 	NewRotation *= 100.f;
 
-	SetActorRotation(NewRotation);
+	//SetActorRotation(NewRotation);
 
 }
 

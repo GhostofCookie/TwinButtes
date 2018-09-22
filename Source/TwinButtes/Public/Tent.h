@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Cyclone.generated.h"
+#include "Tent.generated.h"
 
 UCLASS()
-class TWINBUTTES_API ACyclone : public AActor
+class TWINBUTTES_API ATent : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ACyclone();
+	ATent();
 
 protected:
 	// Called when the game starts or when spawned
@@ -23,20 +23,10 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(VisibleAnywhere)
-	class USphereComponent* CollisionSphere;
-
-	UFUNCTION()
-	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, 
-		class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
-	
-	UPROPERTY()
-	class ACharacter* PlayerRef;
-
 	UPROPERTY()
 	UStaticMeshComponent* Mesh;
 
-private:
-	int Angle;
-	float CircleRadius;
+	UPROPERTY()
+	class UBoxComponent* Collision;
+	
 };

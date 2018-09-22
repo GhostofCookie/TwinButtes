@@ -25,6 +25,12 @@ public:
 
 	UPROPERTY()
 	class USphereComponent* CollisionSphere;
+	
+	UPROPERTY(VisibleAnywhere, Category = "Mesh")
+	USkeletalMeshComponent* Mesh;
+
+	UPROPERTY(EditAnywhere, Category = "Mesh")
+	UAnimSequence* FlagAnim;
 
 	UFUNCTION()
 	void PlantFlag();
