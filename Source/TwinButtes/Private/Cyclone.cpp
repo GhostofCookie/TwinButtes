@@ -5,6 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Components/SphereComponent.h"
 #include "ConstructorHelpers.h"
+#include "BaseCharacter.h"
 #include "GameFramework/Character.h"
 
 
@@ -72,11 +73,12 @@ void ACyclone::Tick(float DeltaTime)
 
 void ACyclone::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (OtherActor && OtherActor != this && PlayerRef)
+	if (OtherActor && OtherActor != this && PlayerRef && Cast<ABaseCharacter>(OtherActor))
 	{
 		if (Cast<ACharacter>(OtherActor) == PlayerRef)
 		{
 			PlayerRef->LaunchCharacter((GetActorForwardVector() + (GetActorUpVector()*-1)) * -1000, true, true);
+			Cast<ABaseCharacter>(OtherActor)->AffectHealth(1.f);
 		}
 	}
 }
