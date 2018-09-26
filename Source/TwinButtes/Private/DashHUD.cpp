@@ -7,7 +7,7 @@
 
 ADashHUD::ADashHUD()
 {
-	static ConstructorHelpers::FClassFinder<UUserWidget> Widget(TEXT("/Game/Blueprints/BP_MainHUD"));
+	static ConstructorHelpers::FClassFinder<UUserWidget> Widget(TEXT("/Game/Blueprints/UI/BP_MainHUD"));
 	if(Widget.Succeeded())
 		CurrentWidget = CreateWidget<UUserWidget>(GetWorld(), Widget.Class);
 

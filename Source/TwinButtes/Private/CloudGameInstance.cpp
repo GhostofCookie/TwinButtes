@@ -10,7 +10,7 @@
 
 UCloudGameInstance::UCloudGameInstance() : bWidgetLoaded{ false }, bGameOver{ false }, DayNumber{ 1 }
 {
-	static ConstructorHelpers::FClassFinder<UUserWidget> Widget(TEXT("/Game/Blueprints/BP_Instructions"));
+	static ConstructorHelpers::FClassFinder<UUserWidget> Widget(TEXT("/Game/Blueprints/UI/BP_Instructions"));
 	CurrentWidget = CreateWidget<UInstructionsWidget>(GetWorld(), Widget.Class);
 	
 }
@@ -24,7 +24,7 @@ void UCloudGameInstance::ShowInstructions()
 {
 	if (!bWidgetLoaded)
 	{
-		FStringClassReference Widget(TEXT("/Game/Blueprints/BP_Instructions.BP_Instructions_C"));
+		FStringClassReference Widget(TEXT("/Game/Blueprints/UI/BP_Instructions.BP_Instructions_C"));
 		CurrentWidget = CreateWidget<UInstructionsWidget>(GetWorld(), Widget.TryLoadClass<UInstructionsWidget>());
 		if (CurrentWidget)
 			CurrentWidget->AddToViewport();
