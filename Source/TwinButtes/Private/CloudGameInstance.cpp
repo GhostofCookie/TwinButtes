@@ -8,7 +8,7 @@
 #include "ConstructorHelpers.h"
 #include "DashSaveGame.h"
 
-UCloudGameInstance::UCloudGameInstance() : bWidgetLoaded{ false }, bGameOver{ false }
+UCloudGameInstance::UCloudGameInstance() : bWidgetLoaded{ false }, bGameOver{ false }, DayNumber{ 1 }
 {
 	static ConstructorHelpers::FClassFinder<UUserWidget> Widget(TEXT("/Game/Blueprints/BP_Instructions"));
 	CurrentWidget = CreateWidget<UInstructionsWidget>(GetWorld(), Widget.Class);

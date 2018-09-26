@@ -29,8 +29,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void LoadCheckpoint();
 
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "End Game")
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "End Game")
 	bool bGameOver;
+
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "End Game")
+	int DayNumber;
 
 
 protected:

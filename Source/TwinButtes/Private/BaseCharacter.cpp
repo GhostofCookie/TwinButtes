@@ -110,7 +110,10 @@ void ABaseCharacter::Respawn(FTransform NewTransform)
 void ABaseCharacter::CheckHealth()
 {
 	if (Health <= 0.f && !bIsDead)
+	{
 		bIsDead = true;
+		Cast<UCloudGameInstance>(GetGameInstance())->DayNumber++;
+	}
 	if (Health > MaxHealth)
 		Health = MaxHealth;
 	if (bIsDead)

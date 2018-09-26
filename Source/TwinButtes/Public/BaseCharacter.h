@@ -66,10 +66,10 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "Ability Movement")
 	float DashForwardVelocity;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	float Health;
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	float MaxHealth;
 
 	UPROPERTY(BlueprintReadOnly)
