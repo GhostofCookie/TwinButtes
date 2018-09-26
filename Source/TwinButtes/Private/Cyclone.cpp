@@ -47,7 +47,7 @@ void ACyclone::Tick(float DeltaTime)
 	if (!PlayerRef)
 		PlayerRef = UGameplayStatics::GetPlayerCharacter(this, 0);
 
-	if (GetDistanceTo(PlayerRef) <= 1000.f)
+	if (GetDistanceTo(PlayerRef) <= 1000.f && PlayerRef)
 	{
 		FVector NewLocation = GetActorLocation() - PlayerRef->GetActorLocation();
 
