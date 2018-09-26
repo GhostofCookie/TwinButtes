@@ -1,3 +1,4 @@
+
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Cyclone.h"
@@ -19,7 +20,7 @@ ACyclone::ACyclone()
 	RootComponent = CollisionSphere;
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("/Game/Assets/StarterAssets/Shape_Cylinder.Shape_Cylinder"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("/Game/Assets/Cyclone.Cyclone"));
 	if (MeshAsset.Succeeded())
 		Mesh->SetStaticMesh(MeshAsset.Object);
 	Mesh->SetupAttachment(RootComponent);
@@ -63,9 +64,9 @@ void ACyclone::Tick(float DeltaTime)
 	}
 
 	FRotator NewRotation = GetActorRotation();
-	NewRotation *= 100.f;
+	NewRotation.Yaw += 750.f * DeltaTime;
 
-	//SetActorRotation(NewRotation);
+	SetActorRotation(NewRotation);
 
 }
 

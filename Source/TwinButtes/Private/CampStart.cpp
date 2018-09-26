@@ -66,6 +66,8 @@ void ACampStart::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class
 		if(bShowInstructions)
 			Cast<UCloudGameInstance>(GetGameInstance())->ShowInstructions();
 		Cast<UCloudGameInstance>(GetGameInstance())->SetCheckpoint(OtherActor->GetActorTransform());
+
+		Cast<ABaseCharacter>(OtherActor)->AffectHealth(1.f);
 	}
 }
 
