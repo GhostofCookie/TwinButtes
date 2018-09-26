@@ -10,7 +10,7 @@
 
 
 // Sets default values
-AFlagGoal::AFlagGoal()
+AFlagGoal::AFlagGoal() : bOverlapped{ false }
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -53,10 +53,11 @@ void AFlagGoal::PlantFlag()
 
 void AFlagGoal::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
-	if (OtherActor && OtherActor != this && Cast<ABaseCharacter>(OtherActor))
+	if (OtherActor && OtherActor != this && Cast<ABaseCharacter>(OtherActor) && !bOverlapped)
 	{
 		if(FlagAnim) Mesh->PlayAnimation(FlagAnim, false);
 		Cast<UCloudGameInstance>(GetGameInstance())->bGameOver = true;
+		bOverlapped = true;
 	}
 }
 
